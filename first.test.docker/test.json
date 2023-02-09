@@ -1,0 +1,26 @@
+{
+    "variables": {
+      "version": "latest",
+      "do_token": "{{env `DIGITALOCEAN_TOKEN`}}"
+    },
+    "builders": [{
+      "type": "digitalocean",
+      "api_token": "{{user `do_token`}}",
+      "image": "ubuntu-20-04-x64",
+      "region": "lon1",
+      "size": "s-1vcpu-1gb",
+      "ssh_username": "root",
+      "droplet_name": "rocketchat-{{user `version`}}",
+      "snapshot_name": "rocketchat-{{user `version`}}-{{timestamp}}"
+    }],
+    "provisioners": [ {
+      "type": "shell",
+      "inline": [
+        "sleep 20",
+        "sudo apt-get update -y",
+        "sudo apt-get upgrade -y",
+        "sudo apt install "
+      ]
+    }
+    ]
+  }
